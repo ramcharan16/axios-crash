@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Call</title>
+    <style>
+        body {
+            background-image: url(rc.png);
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title text-center">Book a Call</h2>
+                        <p class="card-text text-center">Book a call slot, and our representative will call you within 1 hour of the selected time.</p>
+                        <form id="callForm">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number:</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Time for Call:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="date" class="form-control" id="callDate" name="callDate" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="time" class="form-control" id="callTime" name="callTime" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block">Get a Call</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const callForm=document.getElementById('callForm');
+        callForm.addEventListener('submit',async function(event){
+            event.preventDefault();
+            const name=document.getElementById('name').value;
+            const phone=document.getElementById('phone').value;
+            const email=document.getElementById('email').value;
+            const callDate=document.getElementById('phone').value;
+            const callTime=document.getElementById('phone').value;
+            const UserDetails={
+                name,
+                phone,
+                email,
+                callDate,
+                callTime
+            };
+            try{
+                const response=await axios.post("https://crudcrud.com/api/903e08de95d046759ad8650f5342b6a0/bookappointmentdetails",UserDetails);
+                console.log('User details saved to the cloud:', response.data);
+                callForm.reset()
+
+            }catch(error){
+                console.error('Error saving user details:', error);
+            }
+
+        });
+    </script>
+</body>
+</html>
